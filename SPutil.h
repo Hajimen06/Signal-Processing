@@ -44,18 +44,26 @@ double *DFT_power(int n, COMPLEX *input);
 int get_label(int x, int y, int width);
 // mode == 1 : format
 double *d_cin_2(int height, int width);
+COMPLEX *c_cin_2(int height, int width);
+COMPLEX *c_cin_2_aut(int height, int width);
 void d_print_2(int height, int width, double *input, int mode);
+void c_print_2(int height, int width, COMPLEX *input, int mode);
 
 
 double *d_get_array_v(int height, int width, double *input, int n);
 double *d_get_array_h(int width, double *input, int n);
 void d_copy_vertical(int height, int width, double *input, double *aim, int n);
 void d_copy_horizontal(int width, double *input, double *aim, int n);
-double *DCT_2(int heght, int width, double *input);
-double *iDCT_2(int heght, int width, double *input);
+double *DCT_2(int height, int width, double *input);
+double *iDCT_2(int height, int width, double *input);
 
 
-
+COMPLEX *c_get_array_v(int height, int width, COMPLEX *input, int n);
+COMPLEX *c_get_array_h(int width, COMPLEX *input, int n);
+void c_copy_vertical(int height, int width, COMPLEX *input, COMPLEX *aim, int n);
+void c_copy_horizontal(int width, COMPLEX *input, COMPLEX *aim, int n);
+COMPLEX *DFT_2(int height, int width, COMPLEX *input);
+COMPLEX *iDFT_2(int height, int width, COMPLEX *input);
 
 
 #endif /* SPutil_H_ */

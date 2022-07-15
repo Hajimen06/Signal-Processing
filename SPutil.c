@@ -297,6 +297,28 @@ double *d_cin_2(int height, int width) {
     return input;
 }
 
+COMPLEX *c_cin_2(int height, int width) {
+    COMPLEX *input = (COMPLEX *)malloc(sizeof(COMPLEX) * height * width);
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            scanf("%lf", &input[get_label(i, j, width)].rn);
+            scanf("%lf", &input[get_label(i, j, width)].in);
+        }
+    }
+    return input;
+}
+
+COMPLEX *c_cin_2_aut(int height, int width) {
+    COMPLEX *input = (COMPLEX *)malloc(sizeof(COMPLEX) * height * width);
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            scanf("%lf", &input[get_label(i, j, width)].rn);
+            input[get_label(i, j, width)].in = 0;
+        }
+    }
+    return input;
+}
+
 void d_print_2(int height, int width, double *input, int mode) {
     puts("\nprint");
     if (mode == 0) {
@@ -317,6 +339,34 @@ void d_print_2(int height, int width, double *input, int mode) {
             printf("%3d", i);
             for (int j = 0; j < width; ++j) {
                 printf("  %7.2f", input[get_label(i, j, width)]);
+            }
+            puts("");
+        }
+    }
+}
+
+void c_print_2(int height, int width, COMPLEX *input, int mode) {
+    puts("\nprint");
+    if (mode == 0) {
+        for (int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j) {
+                printf("%7.2f", input[get_label(i, j, width)].rn);
+                printf(" %7.2f   ", input[get_label(i, j, width)].in);
+            }
+            puts("");
+        }
+    }
+    if (mode == 1) {
+        printf("###");
+        for (int i = 0; i < width; ++i) {
+            printf("%20d", i);
+        }
+        puts("");
+        for (int i = 0; i < height; ++i) {
+            printf("%3d", i);
+            for (int j = 0; j < width; ++j) {
+                printf("%7.2f", input[get_label(i, j, width)].rn);
+                printf(" + j(%7.2f)", input[get_label(i, j, width)].in);
             }
             puts("");
         }
@@ -389,6 +439,76 @@ double *iDCT_2(int height, int width, double *input) {
         d_copy_horizontal(width, iDCTed, output, i);
         free(h_input);
         free(iDCTed);
+    }
+    return output;
+}
+
+COMPLEX *c_get_array_v(int height, int width, COMPLEX *input, int n) {
+    COMPLEX *output = (COMPLEX *)malloc(sizeof(COMPLEX) * height);
+    for (int i = 0; i < height; ++i) {
+        output[i] = input[get_label(i, n, width)];
+    }
+    return output;
+}
+
+COMPLEX *c_get_array_h(int width, COMPLEX *input, int n) {
+    COMPLEX *output = (COMPLEX *)malloc(sizeof(COMPLEX) * width);
+    for (int i = 0; i < width; ++i) {
+        output[i] = input[get_label(n, i, width)];
+    }
+    return output;
+}
+
+void c_copy_vertical(int height, int width, COMPLEX *input, COMPLEX *aim, int n) {
+    for (int i = 0; i < height; ++i) {
+        aim[get_label(i, n, width)] = input[i];
+    }
+}
+
+void c_copy_horizontal(int width, COMPLEX *input, COMPLEX *aim, int n) {
+    for (int i = 0; i < width; ++i) {
+        aim[get_label(n, i, width)] = input[i];
+    }
+}
+
+COMPLEX *DFT_2(int height, int width, COMPLEX *input) {
+    COMPLEX *output = (COMPLEX *)malloc(sizeof(COMPLEX) * height * width);
+
+    for (int i = 0; i < width; ++i) {
+        COMPLEX *v_input = c_get_array_v(height, width, input, i);
+        COMPLEX *DFTed = DFT(height, v_input);
+        c_copy_vertical(height, width, DFTed, output, i);
+        free(v_input);
+        free(DFTed);
+    }
+
+    for (int i = 0; i < height; ++i) {
+        COMPLEX *h_input = c_get_array_h(width, output, i);
+        COMPLEX *DFTed = DFT(width, h_input);
+        c_copy_horizontal(width, DFTed, output, i);
+        free(h_input);
+        free(DFTed);
+    }
+    return output;
+}
+
+COMPLEX *iDFT_2(int height, int width, COMPLEX *input) {
+    COMPLEX *output = (COMPLEX *)malloc(sizeof(COMPLEX) * height * width);
+
+    for (int i = 0; i < width; ++i) {
+        COMPLEX *v_input = c_get_array_v(height, width, input, i);
+        COMPLEX *iDFTed = iDFT(height, v_input);
+        c_copy_vertical(height, width, iDFTed, output, i);
+        free(v_input);
+        free(iDFTed);
+    }
+
+    for (int i = 0; i < height; ++i) {
+        COMPLEX *h_input = c_get_array_h(width, output, i);
+        COMPLEX *iDFTed = iDFT(width, h_input);
+        c_copy_horizontal(width, iDFTed, output, i);
+        free(h_input);
+        free(iDFTed);
     }
     return output;
 }
