@@ -31,7 +31,6 @@ int main() {
     d_print_2(height, width, result, 0);
 
 
-
     free(input);
     free(result);
 }
