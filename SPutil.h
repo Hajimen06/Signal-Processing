@@ -50,18 +50,22 @@ void d_print_2(int height, int width, double *input, int mode);
 void c_print_2(int height, int width, COMPLEX *input, int mode);
 
 
+// **********
 double *d_get_array_v(int height, int width, double *input, int n);
 double *d_get_array_h(int width, double *input, int n);
 void d_copy_vertical(int height, int width, double *input, double *aim, int n);
 void d_copy_horizontal(int width, double *input, double *aim, int n);
+// **********
 double *DCT_2(int height, int width, double *input);
 double *iDCT_2(int height, int width, double *input);
 
 
+// **********
 COMPLEX *c_get_array_v(int height, int width, COMPLEX *input, int n);
 COMPLEX *c_get_array_h(int width, COMPLEX *input, int n);
 void c_copy_vertical(int height, int width, COMPLEX *input, COMPLEX *aim, int n);
 void c_copy_horizontal(int width, COMPLEX *input, COMPLEX *aim, int n);
+// **********
 COMPLEX *DFT_2(int height, int width, COMPLEX *input);
 COMPLEX *iDFT_2(int height, int width, COMPLEX *input);
 

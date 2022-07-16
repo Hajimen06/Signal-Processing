@@ -1,5 +1,7 @@
-#include "../SPutil.h"
 #include <stdlib.h>
+
+#include "../SPutil.h"
+#include "../FFT.h"
 
 int main() {
     int q;
@@ -26,7 +28,8 @@ int main() {
         }
         puts("");
 
-        COMPLEX *output = DFT(n, input);
+        //COMPLEX *output = DFT(n, input);
+        COMPLEX *output = FFT(n, input);
         puts("Calculated.");
         for (int i = 0; i < n; ++i) {
             printf("%f %f\n", output[i].rn, output[i].in);

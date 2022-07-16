@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "../SPutil.h"
+#include "../FFT.h"
 
 int main(int args, char **argv) {
     int line_no;
@@ -9,7 +10,8 @@ int main(int args, char **argv) {
 
     // DFT
     printf("line_no == %d\n", line_no);
-    COMPLEX *output_1 = DFT(line_no, input_1);
+    //COMPLEX *output_1 = DFT(line_no, input_1);
+    COMPLEX *output_1 = FFT(line_no, input_1);
 
     // power
     double *to_graph = DFT_power(line_no, output_1);
