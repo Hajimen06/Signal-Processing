@@ -59,7 +59,7 @@ int main() {
         }
         puts("");
 
-        COMPLEX *output = iDFT(n, input);
+        COMPLEX *output = iFFT(n, input);
         puts("Calculated.");
         for (int i = 0; i < n; ++i) {
             printf("%f %f\n", output[i].rn, output[i].in);

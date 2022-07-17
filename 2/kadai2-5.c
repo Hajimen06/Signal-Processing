@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "../SPutil.h"
+#include "../FFT.h"
 
 int main(int args, char **argv) {
     int line_no;
@@ -11,6 +12,7 @@ int main(int args, char **argv) {
 
     // DFT
     COMPLEX *output_1 = DFT(line_no, input_1);
+    //COMPLEX *output_1 = FFT(line_no, input_1);
 
 
     // high pass filter

@@ -166,6 +166,81 @@ COMPLEX *cd_file_reader(int *line_no, char *file_name) {
     return input;
 }
 
+double *d_csv_reader(int *line_no, char *file_name) {
+    FILE *in_file;
+    if ( (in_file = fopen(file_name, "r")) == NULL ) {
+        puts("ERROR : d_csv_reader - fopen");
+        return NULL;
+    }
+
+    fscanf(in_file, "%d", line_no);
+    printf("line_no == %d\n", *line_no);
+    double *output = (double *)malloc(sizeof(double)*(*line_no));
+
+    int l;
+    for (int i = 0; i < *line_no; ++i) {
+        fscanf(in_file, "%d,%lf", &l, &output[i]);
+    }
+
+    fclose(in_file);
+    return output;
+}
+
+int d_csv_writer(int line_no, double *input, char *file_name) {
+    FILE *out_file;
+    if ( (out_file = fopen(file_name, "w")) == NULL ) {
+        puts("ERROR : d_csv_writer - fopen");
+        return 0;
+    }
+
+    fprintf(out_file, "%d\n", line_no);
+
+    for (int i = 0; i < line_no; ++i) {
+        fprintf(out_file, "%d,%le\n", i, input[i]);
+    }
+
+    fclose(out_file);
+    return 1;
+}
+
+COMPLEX *c_csv_reader(int *line_no, char *file_name) {
+    FILE *in_file;
+    if ( (in_file = fopen(file_name, "r")) == NULL ) {
+        puts("ERROR : c_csv_reader - fopen");
+        return NULL;
+    }
+
+    fscanf(in_file, "%d", line_no);
+    printf("line_no == %d\n", *line_no);
+    COMPLEX *output = (COMPLEX *)malloc(sizeof(COMPLEX)*(*line_no));
+
+    int l;
+    for (int i = 0; i < *line_no; ++i) {
+        fscanf(in_file, "%d,%lf", &l, &output[i].rn);
+        output[i].in = 0;
+    }
+
+    fclose(in_file);
+    return output;
+}
+
+int c_csv_writer(int line_no, COMPLEX *input, char *file_name) {
+    FILE *out_file;
+    if ( (out_file = fopen(file_name, "w")) == NULL ) {
+        puts("ERROR : c_csv_writer - fopen");
+        return 0;
+    }
+
+    fprintf(out_file, "%d\n", line_no);
+
+    for (int i = 0; i < line_no; ++i) {
+        fprintf(out_file, "%d,%le\n", i, input[i].rn);
+    }
+
+    fclose(out_file);
+    return 1;
+}
+
 double *DCT(int n, double *input) {
     double *output = malloc(sizeof(double) * n);
     for (int k = 0; k < n; ++k) {
