@@ -5,6 +5,8 @@
 #include "../FFT.h"
 
 int main(int args, char **argv) {
+
+    // input
     int line_no;
     COMPLEX *input_1 = cd_file_reader(&line_no, argv[1]);
     printf("line_no == %d\n", line_no);

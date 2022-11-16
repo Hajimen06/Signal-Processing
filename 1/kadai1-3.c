@@ -18,23 +18,18 @@ int main() {
         puts("1: Input number of values.");
         printf(">>");
         scanf("%d", &n);
-        puts("");
 
-        double *input = (double *)malloc(sizeof(double) * n);
         puts("2: Input f(x) values to calculate.");
-        printf(">>");
-        for (int i = 0; i < n; ++i)
-            scanf("%lf", &input[i]);
-        puts("");
+        puts(">>");
+
+        double *input = d_cin(n);
 
         double *output = DCT(n, input);
+
         puts("Calculated.");
-        for (int i = 0; i < n; ++i) {
-            printf("%f\n", output[i]);
-        }
-        for (int i = 0; i < n; ++i) {
-            printf("    C(%d) == %f\n", i, output[i]);
-        }
+        d_print(n, output, 0);
+        d_print(n, output, 1);
+
 
         free(input);
         free(output);
@@ -46,23 +41,17 @@ int main() {
         puts("1: Input number of values.");
         printf(">>");
         scanf("%d", &n);
-        puts("");
 
-        double *input = (double *)malloc(sizeof(double) * n);
         puts("2: Input C(x) values to calculate.");
-        printf(">>");
-        for (int i = 0; i < n; ++i)
-            scanf("%lf", &input[i]);
-        puts("");
+        puts(">>");
+
+        double *input = d_cin(n);
 
         double *output = iDCT(n, input);
+
         puts("Calculated.");
-        for (int i = 0; i < n; ++i) {
-            printf("%f\n", output[i]);
-        }
-        for (int i = 0; i < n; ++i) {
-            printf("    f(%d) == %f\n", i, output[i]);
-        }
+        d_print(n, output, 0);
+        d_print(n, output, 1);
 
         free(input);
         free(output);

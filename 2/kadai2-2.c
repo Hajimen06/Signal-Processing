@@ -20,24 +20,16 @@ int main() {
         scanf("%d", &n);
         puts("");
 
-        COMPLEX *input = (COMPLEX *)malloc(sizeof(COMPLEX) * n);
-        puts("2: Input f(x) values to calculate.");
-        for (int i = 0; i < n; ++i) {
-            scanf("%lf", &input[i].rn);
-            scanf("%lf", &input[i].in);
-        }
-        puts("");
+        // input
+        puts("input");
+        COMPLEX *input = c_cin_aut(n);
+
 
         //COMPLEX *output = DFT(n, input);
         COMPLEX *output = FFT(n, input);
         puts("Calculated.");
-        for (int i = 0; i < n; ++i) {
-            printf("%f %f\n", output[i].rn, output[i].in);
-        }
-        puts("Formed.");
-        for (int i = 0; i < n; ++i) {
-            printf("    F(%d) == %f + j(%f)\n", i, output[i].rn, output[i].in);
-        }
+        c_print(n, output, 0);
+        c_print(n, output, 1);
 
         free(input);
         free(output);
@@ -51,23 +43,18 @@ int main() {
         scanf("%d", &n);
         puts("");
 
-        COMPLEX *input = (COMPLEX *)malloc(sizeof(COMPLEX) * n);
-        puts("2: Input F(x) values to calculate.");
-        for (int i = 0; i < n; ++i) {
-            scanf("%lf", &input[i].rn);
-            scanf("%lf", &input[i].in);
-        }
-        puts("");
+        // input
+        puts("input");
+        COMPLEX *input = c_cin(n);
 
+
+        // iDFT
+        //COMPLEX *output = iDFT(n, input);
         COMPLEX *output = iFFT(n, input);
+
         puts("Calculated.");
-        for (int i = 0; i < n; ++i) {
-            printf("%f %f\n", output[i].rn, output[i].in);
-        }
-        puts("Formed.");
-        for (int i = 0; i < n; ++i) {
-            printf("    f(%d) == %f + j(%f)\n", i, output[i].rn, output[i].in);
-        }
+        c_print(n, output, 0);
+        c_print(n, output, 1);
 
         free(input);
         free(output);

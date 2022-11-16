@@ -4,13 +4,16 @@
 #include "../SPutil.h"
 
 int main(int args, char **argv) {
+
+    // input
     int line_no;
     COMPLEX *input_1 = cd_file_reader(&line_no, argv[1]);
-
     printf("line_no == %d\n", line_no);
+
 
     // DFT
     COMPLEX *output_1 = DFT(line_no, input_1);
+
 
     // power
     // 500 / (500 * 2) * i = 2 >>>> i = 4

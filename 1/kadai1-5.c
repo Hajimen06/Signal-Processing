@@ -22,11 +22,11 @@ int main(int args, char **argv) {
     double *input_2 = output_1;
     double *output_2 = iDCT(line_no, input_2);
 
+
     // graph
-    puts("Graph f3().");
     d_graph(line_no, input_1, 180, 30);
     puts("");
-    puts("Graph f3a().");
+
     d_graph(line_no, output_2, 180, 30);
     puts("");
 

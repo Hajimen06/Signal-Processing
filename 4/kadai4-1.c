@@ -15,12 +15,13 @@ int main() {
     scanf("%d", &width);
 
 
+    // input
     puts("input values");
     double *input = d_cin_2(height, width);
 
 
     double *result;
-    // DCT
+    // DCT_2
     if (m == 0) {
         result = DCT_2(height, width, input);
     }
@@ -28,7 +29,10 @@ int main() {
         result = iDCT_2(height, width, input);
     }
 
+
+    // graph
     d_print_2(height, width, result, 0);
+    d_print_2(height, width, result, 1);
 
 
     free(input);

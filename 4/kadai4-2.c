@@ -24,16 +24,17 @@ int main() {
     // DCT
     if (m == 0) {
         input = c_cin_2_aut(height, width);
-        result = DFT_2(height, width, input);
-        //result = FFT_2(height, width, input);
+        //result = DFT_2(height, width, input);
+        result = FFT_2(height, width, input);
     }
     if (m == 1) {
         input = c_cin_2(height, width);
-        result = iDFT_2(height, width, input);
-        //result = iFFT_2(height, width, input);
+        //result = iDFT_2(height, width, input);
+        result = iFFT_2(height, width, input);
     }
 
     c_print_2(height, width, result, 0);
+    c_print_2(height, width, result, 1);
 
 
     free(input);

@@ -1,6 +1,8 @@
 #include "../FFT.h"
 
 int main(int args, char **argv) {
+
+    // input
     int line_no;
     COMPLEX *input = cd_file_reader(&line_no, argv[1]);
 
@@ -15,9 +17,13 @@ int main(int args, char **argv) {
         l_256[i] = input[line_no - 256 + i];
     }
 
+
+    // FFT
     COMPLEX *f_FFT = FFT(256, f_256);
     COMPLEX *l_FFT = FFT(256, l_256);
 
+
+    // power
     double *f_pow = DFT_power(256, f_FFT);
     double *l_pow = DFT_power(256, l_FFT);
 
@@ -31,7 +37,7 @@ int main(int args, char **argv) {
     free(l_256);
     free(f_FFT);
     free(l_FFT);
-    free(l_pow);
+    free(f_pow);
     free(l_pow);
 }
 /*

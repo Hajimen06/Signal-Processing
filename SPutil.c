@@ -2,7 +2,7 @@
 
 void d_graph(int n, double *input, int max_value, int graph_size) {
     for (int i = 0; i < n; ++i) {
-        printf("  (%3d) == %10.3f ", i, input[i]);
+        printf("  (%4d) == %10.3f ", i, input[i]);
         int convert = input[i] / max_value * graph_size;
         int bool = 0;
         for (int j = -1 * graph_size; j < graph_size; ++j) {
@@ -59,7 +59,7 @@ void c_graph(int n, COMPLEX *input, int max_value, int graph_size) {
     }
 
     for (int i = 0; i < n; ++i) {
-        printf("  (%3d) == %10.3f ", i, to_graph[i]);
+        printf("  (%4d) == %10.3f ", i, to_graph[i]);
         int convert = to_graph[i] / max_value * graph_size;
         int bool = 0;
         for (int j = -1 * graph_size; j < graph_size; ++j) {
@@ -110,10 +110,58 @@ void c_graph(int n, COMPLEX *input, int max_value, int graph_size) {
     free(to_graph);
 }
 
-void c_print(int n, COMPLEX *input) {
-    for (int i = 0; i < n; ++i) {
-        printf("  (%3d) == %10.3f + j(%10.3f)\n", i, input[i].rn, input[i].in);
+void d_print(int n, double *input, int mode) {
+    if (mode == 0) {
+        for (int i = 0; i < n; ++i) {
+            printf("%f\n", input[i]);
+        }
     }
+    else if (mode == 1) {
+        for (int i = 0; i < n; ++i) {
+            printf("  (%3d) == %10.3f\n", i, input[i]);
+        }
+    }
+}
+
+void c_print(int n, COMPLEX *input, int mode) {
+    if (mode == 0) {
+        for (int i = 0; i < n; ++i) {
+            printf("%f %f\n", input[i].rn,
+                   input[i].in);
+        }
+    }
+    else if (mode == 1) {
+        for (int i = 0; i < n; ++i) {
+            printf("  (%3d) == %10.3f + j(%10.3f)\n", i, input[i].rn,
+                   input[i].in);
+        }
+    }
+}
+
+double *d_cin(int line_no) {
+    double *output = (double *)malloc(sizeof(double) * line_no);
+    for (int i = 0; i < line_no; ++i) {
+        scanf("%lf", &output[i]);
+    }
+    return output;
+}
+
+COMPLEX *c_cin(int line_no) {
+    COMPLEX *output = (COMPLEX *)malloc(sizeof(COMPLEX) * line_no);
+    for (int i = 0; i < line_no; ++i) {
+        scanf("%lf", &output[i].rn);
+        scanf("%lf", &output[i].in);
+    }
+    return output;
+}
+
+COMPLEX *c_cin_aut(int line_no) {
+    COMPLEX *output = (COMPLEX *)malloc(sizeof(COMPLEX) * line_no);
+    for (int i = 0; i < line_no; ++i) {
+        scanf("%lf", &output[i].rn);
+        output[i].in = 0;
+    }
+    return output;
 }
 
 double *d_file_reader(int *line_no, char *file_name) {
@@ -161,21 +209,73 @@ COMPLEX *cd_file_reader(int *line_no, char *file_name) {
         input[*line_no].in = 0;
         ++*line_no;
     }
-
     fclose(fp);
     return input;
 }
 
+double *d_file_reader_2(int height, int width, char *file_name) {
+    FILE *fp;
+    if ((fp = fopen(file_name, "r")) == NULL) {
+        puts("ERROR : d_file_reader_2 - fopen");
+        return NULL;
+    }
+
+    double *output = (double *)malloc(sizeof(double) * height * width);
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            fscanf(fp, "%lf", &output[get_label(i, j, width)]);
+        }
+    }
+    fclose(fp);
+    return output;
+}
+
+COMPLEX *c_file_reader_2(int height, int width, char *file_name) {
+    FILE *fp;
+    if ((fp = fopen(file_name, "r")) == NULL) {
+        puts("ERROR : c_file_reader_2 - fopen");
+        return NULL;
+    }
+
+    COMPLEX *output = (COMPLEX *)malloc(sizeof(COMPLEX) * height * width);
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            fscanf(fp, "%lf", &output[get_label(i, j, width)].rn);
+            fscanf(fp, "%lf", &output[get_label(i, j, width)].in);
+        }
+    }
+    fclose(fp);
+    return output;
+}
+
+COMPLEX *cd_file_reader_2(int height, int width, char *file_name) {
+    FILE *fp;
+    if ((fp = fopen(file_name, "r")) == NULL) {
+        puts("ERROR : cd_file_reader_2 - fopen");
+        return NULL;
+    }
+
+    COMPLEX *output = (COMPLEX *)malloc(sizeof(COMPLEX) * height * width);
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            fscanf(fp, "%lf", &output[get_label(i, j, width)].rn);
+            output[get_label(i, j, width)].in = 0;
+        }
+    }
+    fclose(fp);
+    return output;
+}
+
 double *d_csv_reader(int *line_no, char *file_name) {
     FILE *in_file;
-    if ( (in_file = fopen(file_name, "r")) == NULL ) {
+    if ((in_file = fopen(file_name, "r")) == NULL) {
         puts("ERROR : d_csv_reader - fopen");
         return NULL;
     }
 
     fscanf(in_file, "%d", line_no);
     printf("line_no == %d\n", *line_no);
-    double *output = (double *)malloc(sizeof(double)*(*line_no));
+    double *output = (double *)malloc(sizeof(double) * (*line_no));
 
     int l;
     for (int i = 0; i < *line_no; ++i) {
@@ -188,7 +288,7 @@ double *d_csv_reader(int *line_no, char *file_name) {
 
 int d_csv_writer(int line_no, double *input, char *file_name) {
     FILE *out_file;
-    if ( (out_file = fopen(file_name, "w")) == NULL ) {
+    if ((out_file = fopen(file_name, "w")) == NULL) {
         puts("ERROR : d_csv_writer - fopen");
         return 0;
     }
@@ -205,14 +305,14 @@ int d_csv_writer(int line_no, double *input, char *file_name) {
 
 COMPLEX *c_csv_reader(int *line_no, char *file_name) {
     FILE *in_file;
-    if ( (in_file = fopen(file_name, "r")) == NULL ) {
+    if ((in_file = fopen(file_name, "r")) == NULL) {
         puts("ERROR : c_csv_reader - fopen");
         return NULL;
     }
 
     fscanf(in_file, "%d", line_no);
     printf("line_no == %d\n", *line_no);
-    COMPLEX *output = (COMPLEX *)malloc(sizeof(COMPLEX)*(*line_no));
+    COMPLEX *output = (COMPLEX *)malloc(sizeof(COMPLEX) * (*line_no));
 
     int l;
     for (int i = 0; i < *line_no; ++i) {
@@ -226,7 +326,7 @@ COMPLEX *c_csv_reader(int *line_no, char *file_name) {
 
 int c_csv_writer(int line_no, COMPLEX *input, char *file_name) {
     FILE *out_file;
-    if ( (out_file = fopen(file_name, "w")) == NULL ) {
+    if ((out_file = fopen(file_name, "w")) == NULL) {
         puts("ERROR : c_csv_writer - fopen");
         return 0;
     }
@@ -404,7 +504,7 @@ void d_print_2(int height, int width, double *input, int mode) {
             puts("");
         }
     }
-    if (mode == 1) {
+    else if (mode == 1) {
         printf("###");
         for (int i = 0; i < width; ++i) {
             printf("%9d", i);
@@ -418,6 +518,14 @@ void d_print_2(int height, int width, double *input, int mode) {
             puts("");
         }
     }
+    else if (mode == 2) {
+        for (int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j) {
+                printf("%.3f  ", input[get_label(i, j, width)]);
+            }
+            puts("");
+        }
+    }
 }
 
 void c_print_2(int height, int width, COMPLEX *input, int mode) {
@@ -425,23 +533,32 @@ void c_print_2(int height, int width, COMPLEX *input, int mode) {
     if (mode == 0) {
         for (int i = 0; i < height; ++i) {
             for (int j = 0; j < width; ++j) {
-                printf("%7.2f", input[get_label(i, j, width)].rn);
-                printf(" %7.2f   ", input[get_label(i, j, width)].in);
+                printf("%9.2f", input[get_label(i, j, width)].rn);
+                printf(" %9.2f   ", input[get_label(i, j, width)].in);
             }
             puts("");
         }
     }
-    if (mode == 1) {
+    else if (mode == 1) {
         printf("###");
         for (int i = 0; i < width; ++i) {
-            printf("%20d", i);
+            printf("%22d", i);
         }
         puts("");
         for (int i = 0; i < height; ++i) {
             printf("%3d", i);
             for (int j = 0; j < width; ++j) {
-                printf("%7.2f", input[get_label(i, j, width)].rn);
-                printf(" + j(%7.2f)", input[get_label(i, j, width)].in);
+                printf("%8.2f", input[get_label(i, j, width)].rn);
+                printf(" + j(%8.2f)", input[get_label(i, j, width)].in);
+            }
+            puts("");
+        }
+    }
+    else if (mode == 2) {
+        for (int i = 0; i < height; ++i) {
+            for (int j = 0; j < width; ++j) {
+                printf("%.3f", input[get_label(i, j, width)].rn);
+                printf(" %.3f    ", input[get_label(i, j, width)].in);
             }
             puts("");
         }
@@ -534,7 +651,8 @@ COMPLEX *c_get_array_h(int width, COMPLEX *input, int n) {
     return output;
 }
 
-void c_copy_vertical(int height, int width, COMPLEX *input, COMPLEX *aim, int n) {
+void c_copy_vertical(int height, int width, COMPLEX *input, COMPLEX *aim,
+                     int n) {
     for (int i = 0; i < height; ++i) {
         aim[get_label(i, n, width)] = input[i];
     }

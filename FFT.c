@@ -202,6 +202,6 @@ COMPLEX *iFFT_2(int height, int width, COMPLEX *input) {
         c_copy_horizontal(width, iDFTed, output, i);
         free(h_input);
         free(iDFTed);
-    }
+    } 
     return output;
 }

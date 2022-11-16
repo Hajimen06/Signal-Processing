@@ -12,7 +12,6 @@ int main(int args, char **argv) {
     double *output_1 = DCT(line_no, input_1);
 
 
-    puts("aaa");
     // lowpass filter
     double *input_2 = DCT_lowpass(line_no, output_1, 20);
 
@@ -22,10 +21,9 @@ int main(int args, char **argv) {
 
 
     // graph
-    puts("Graph f3().");
     d_graph(line_no, input_1, 180, 30);
     puts("");
-    puts("Graph f3a().");
+
     d_graph(line_no, output_2, 180, 30);
     puts("");
 

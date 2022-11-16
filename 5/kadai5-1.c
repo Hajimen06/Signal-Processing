@@ -13,6 +13,7 @@ int main(int args, char **argv) {
         return 0;
     }
 
+    printf("line_no == %d\n", line_no);
 
     COMPLEX *fft_out = FFT(line_no, csv);
     puts("FFT done.");
@@ -22,6 +23,8 @@ int main(int args, char **argv) {
 
     COMPLEX *ifft_out = iFFT(line_no, lowpass);
     puts("iFFT done.");
+
+    c_print(line_no, ifft_out, 1);
 
 
     if(c_csv_writer(line_no, ifft_out, "ifft.csv"))
