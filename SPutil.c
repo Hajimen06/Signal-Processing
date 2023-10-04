@@ -126,8 +126,7 @@ void d_print(int n, double *input, int mode) {
 void c_print(int n, COMPLEX *input, int mode) {
     if (mode == 0) {
         for (int i = 0; i < n; ++i) {
-            printf("%f %f\n", input[i].rn,
-                   input[i].in);
+            printf("%f %f\n", input[i].rn, input[i].in);
         }
     }
     else if (mode == 1) {
